@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('ukts', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis-ukt');
+            $table->string('jenis_ukt');
             $table->bigInteger('nominal');
             $table->softDeletes();
             $table->timestamps();

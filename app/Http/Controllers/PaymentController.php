@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Midtrans;
 use App\Models\PaymentHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,7 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     private function createPaymentHistory($method,$nominal){
         $data = [
             'user_id' => Auth::user()->id,
@@ -22,14 +24,14 @@ class PaymentController extends Controller
         ];
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index(){
+
+    }
+
     public function gopay()
     {
-        \Midtrans\Config::$serverKey = 'YOUR_SERVER_KEY';
+        \Midtrans\Config::$serverKey = Midtrans::get()->last()->server_id;
+
  
         $params = array(
             'transaction_details' => array(

@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Midtrans extends Model
 {
     use HasFactory;
-    protected $fillable = ['id-merchant','client-key','server-key'];
+    protected $fillable = ['id_merchant','client_key','server_key'];
 }

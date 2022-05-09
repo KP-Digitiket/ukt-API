@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('midtrans', function (Blueprint $table) {
             $table->id();
-            $table->string('id-merchant');
-            $table->string('client-key');
-            $table->string('server-key');
+            $table->string('id_merchant');
+            $table->string('client_key');
+            $table->string('server_key');
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Ukt::class);
-            $table->string('payment-method');
+            $table->string('payment_method');
             $table->integer('expired')->unsigned();
             $table->boolean('status');
             $table->timestamps();

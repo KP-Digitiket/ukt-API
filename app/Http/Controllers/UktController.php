@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ukt;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use function GuzzleHttp\json_encode;
 
 class UktController extends Controller
 {
@@ -12,9 +16,11 @@ class UktController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getNominalUKT()
     {
-        //
+        $nominal = Auth::user()->nominal;
+        return response($nominal);
+
     }
 
     /**
