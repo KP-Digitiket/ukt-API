@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Midtrans;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class MidtransController extends Controller
 {
@@ -12,9 +13,37 @@ class MidtransController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    
+    public function index(Datatables $datatables, Request $request)
     {
-        //
+        if ($request->ajax()) {
+            return $datatables->of(Midtrans::query()->role('Peserta')->latest())
+                ->addColumn('id_merchant', function (Midtrans $Midtrans) {
+                    return $Midtrans->name;
+                })
+                ->addColumn('client_id', function (Midtrans $Midtrans) {
+                    return $Midtrans->email;
+                })
+                ->addColumn('server_id', function (Midtrans $Midtrans) {
+                    return $Midtrans->registed->count();
+                })
+                ->addColumn('action', function (Midtrans $Midtrans) {
+
+                    return \view('back-end.peserta.button_action', compact('Midtrans'));
+                })
+                ->addColumn('status', function (Midtrans $Midtrans) {
+                    if ($Midtrans->deleted_at) {
+                        return 'Inactive';
+                    } else {
+                        return 'Active';
+                    }
+                })
+                ->rawColumns(['status', 'action'])
+                ->make(true);
+        } else {
+            return view('back-end.midtrans.index');
+
+        }
     }
 
     /**
@@ -24,7 +53,8 @@ class MidtransController extends Controller
      */
     public function create()
     {
-        //
+        $midtrans = Midtrans::pluck('name','name')->all();
+        return view('back-end.midtrans.create',compact('midtrans'));
     }
 
     /**
@@ -81,5 +111,9 @@ class MidtransController extends Controller
     public function destroy(Midtrans $midtrans)
     {
         //
+    }
+    public function getClientId(){
+        $client = Midtrans::get()->last()->client_id;
+        return json_encode($client);
     }
 }
