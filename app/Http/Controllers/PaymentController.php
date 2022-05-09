@@ -4,17 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\PaymentHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class PaymentHistoryController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    private function createPaymentHistory($method,$nominal){
+        $data = [
+            'user_id' => Auth::user()->id,
+            'ukt_id' => Auth::user()->ukt_id,
+            
+
+        ];
     }
 
     /**
@@ -39,6 +44,7 @@ class PaymentHistoryController extends Controller
         );
         
         $response = \Midtrans\CoreApi::charge($params);
+        return $response;
     }
 
     /**
