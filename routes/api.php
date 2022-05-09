@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\MidtransController;
+use App\Http\Controllers\PaymentHistoryController;
+use App\Http\Controllers\UktController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::apiResource('midtrans',MidtransController::class);
+    Route::apiResource('payment',PaymentHistoryController::class);
+    Route::apiResource('ukt',UktController::class);
 });
