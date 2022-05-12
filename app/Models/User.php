@@ -45,6 +45,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function adminlte_image()
+    {
+        return asset('images/'.\Illuminate\Support\Facades\Auth::user()->avatar);
+    }
+
+    public function adminlte_desc()
+    {
+        return 'That\'s a nice guy';
+    }
+
+    public function adminlte_profile_url()
+    {
+        return 'profile/username';
+    }
+
     public function paymentHistory(){
         return $this->hasMany(PaymentHistory::class,'user_id');
     }
