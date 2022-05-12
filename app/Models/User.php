@@ -46,7 +46,7 @@ class User extends Authenticatable
     ];
 
     public function paymentHistory(){
-        return $this->hasMany(PaymentHistory::class);
+        return $this->hasMany(PaymentHistory::class,'user_id');
     }
 
     public function ukt(){
