@@ -29,8 +29,9 @@ class PaymentController extends Controller
         return json_encode(PaymentHistory::get()->all());
     }
 
-    public function gopay($userId){
-        \Midtrans\Config::$serverKey = Midtrans::get()->last()->server_id;
+    public function gopay(){
+        // dd(Midtrans::latest()->first()->server_key);
+        \Midtrans\Config::$serverKey = Midtrans::latest()->first()->server_key;
         
         if(PaymentHistory::get()->count() == 0){
             $orderNumber = 0;
@@ -43,12 +44,12 @@ class PaymentController extends Controller
         
         $orderId = "UKT".$date.sprintf("%09s",$orderNumber);
  
-        $ukt = Auth::user()->nominal;
+        // $ukt = Auth::user()->nominal;
 
         $params = array(
             'transaction_details' => array(
                 'order_id' => $orderId,
-                'gross_amount' => $ukt,
+                'gross_amount' => 200000,
             ),
             'payment_type' => 'gopay',
             'gopay' => array(
@@ -58,8 +59,10 @@ class PaymentController extends Controller
         );
         
         $response = \Midtrans\CoreApi::charge($params);
-        return $response;
+        dd($response);
+        return json_encode($response);
     }
+    
     /**
      * Store a newly created resource in storage.
      *
