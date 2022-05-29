@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UktController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => ['auth']], function(){
-    Route::resource('roles', RoleController::class);
+Route::middleware('auth')->prefix('dashboard')->name('dash.')->group( function(){
+    // Route::resource('roles', RoleController::class);
     Route::resource('ukts', UktController::class);
 });

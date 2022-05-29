@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('deskripsi');
             $table->string('surat_kebijakan')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->unsignedInteger('discount');
+            $table->unsignedInteger('discount')->nullable();
+            $table->timestamp('masa_berlaku');
             $table->softDeletes();
             $table->timestamps();
         });
