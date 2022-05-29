@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ukts', function (Blueprint $table) {
+        Schema::create('kebijakan', function (Blueprint $table) {
             $table->id();
-            $table->integer('jenis_ukt');
-            $table->bigInteger('nominal');
+            $table->string('nama');
+            $table->string('deskripsi');
+            $table->string('surat_kebijakan')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->unsignedInteger('discount');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ukts');
+        Schema::dropIfExists('kebijakan');
     }
 };

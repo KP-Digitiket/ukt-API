@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ukts', function (Blueprint $table) {
-            $table->id();
-            $table->integer('jenis_ukt');
-            $table->bigInteger('nominal');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignIdFor(Ukt::class)->after('id');
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ukts');
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignIdFor(Ukt::class);
+        });
     }
 };

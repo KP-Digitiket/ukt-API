@@ -59,10 +59,10 @@ class PaymentController extends Controller
         );
         
         $response = \Midtrans\CoreApi::charge($params);
-        dd($response);
+        // dd($response);
         return json_encode($response);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
